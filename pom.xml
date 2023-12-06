@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.myspace</groupId>
+  <artifactId>simple-sample</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>simple-sample</name>
+  <description>simple-sample containing a simple bpmn2 process </description>
+
+  <properties>
+    <jaxb-api.version>2.3.0.redhat-1</jaxb-api.version>
+    <maven.compiler.version>3.8.0</maven.compiler.version>
+    <ba-platform-bom.version>8.0.3.redhat-00002</ba-platform-bom.version>
+    <org.jboss.bom.version>7.4.10.GA</org.jboss.bom.version>
+    <slf4j-simple.version>1.7.22.redhat-2</slf4j-simple.version>
+    <junit.version>4.13.1</junit.version>
+    <org.hamcrest.version>1.3</org.hamcrest.version>
+    <!-- Explicitly declaring the source encoding eliminates the following
+        message: -->
+    <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
+        resources, i.e. build is platform dependent! -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <distribution>repo</distribution>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+    </license>
+  </licenses>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.redhat.ba</groupId>
+        <artifactId>ba-platform-bom</artifactId>
+        <version>${ba-platform-bom.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.jboss.bom</groupId>
+        <artifactId>eap-runtime-artifacts</artifactId>
+        <version>${org.jboss.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.drools</groupId>
+      <artifactId>drools-core</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-internal</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>openshift</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <maven.compiler.release>11</maven.compiler.release>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven.compiler.version}</version>
+            <configuration>
+              <release>${maven.compiler.release}</release>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <repositories>
+    <repository>
+      <id>redhat-ga-repository</id>
+      <url>https://maven.repository.redhat.com/ga/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+        <updatePolicy>never</updatePolicy>
+      </snapshots>
+    </repository>
+
+
+  </repositories>
+</project>
